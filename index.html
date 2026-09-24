@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia Interativo: Desvendando o Curso de Medicina • UFC & Demografia Médica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0A2540;
+      --primary-light: #16426E;
+      --primary-dark: #061728;
+      --secondary: #0D9488;
+      --secondary-light: #14B8A6;
+      --secondary-soft: #F0FDFA;
+      --accent: #F59E0B;
+      --accent-soft: #FEF3C7;
+      --dark: #0F172A;
+      --gray-light: #F8FAFC;
+      --gray-border: #E2E8F0;
+      --text-main: #334155;
+      --text-muted: #64748B;
+      --card-bg: #FFFFFF;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 20px 35px -10px rgba(15, 23, 42, 0.12);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #F1F5F9;
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 1220px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header-card {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 38px 34px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-card::after {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -10%;
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(20, 184, 166, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .author-badge-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .badge-author {
+      background: var(--secondary);
+      color: #FFFFFF;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+
+    .badge-inst {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #E2E8F0;
+    }
+
+    .title-group h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.3rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+    }
+
+    .title-group p.lead {
+      font-size: 1.05rem;
+      color: #CBD5E1;
+      max-width: 950px;
+      margin-bottom: 22px;
+    }
+
+    .pnp-box {
+      background: rgba(255, 255, 255, 0.08);
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 24px;
+      font-size: 0.94rem;
+      color: #F8FAFC;
+    }
+
+    .pnp-box strong {
+      color: var(--accent);
+    }
+
+    /* KPI METRICS */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .kpi-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .kpi-card:hover {
+      background: rgba(255, 255, 255, 0.14);
+      transform: translateY(-2px);
+    }
+
+    .kpi-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--secondary-light);
+    }
+
+    .kpi-lbl {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #CBD5E1;
+      margin-top: 2px;
+    }
+
+    /* SECTION BOX */
+    .section-box {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--gray-border);
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title .step-pill {
+      background: var(--primary);
+      color: #FFF;
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .section-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* TABS */
+    .tab-navigation {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+      background: #F1F5F9;
+      padding: 6px;
+      border-radius: 12px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 150px;
+      padding: 12px 14px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .tab-btn .tab-sub {
+      font-size: 0.72rem;
+      font-weight: 500;
+      opacity: 0.8;
+    }
+
+    .tab-btn:hover {
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      background: #FFFFFF;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tab-btn.active .tab-sub {
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out forwards;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* CARDS & GRIDS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .card-item {
+      background: var(--gray-light);
+      border: 1px solid var(--gray-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      transition: var(--transition);
+    }
+
+    .card-item:hover {
+      background: #FFFFFF;
+      border-color: var(--secondary-light);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .card-item h4 {
+      font-size: 1.05rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-item p {
+      font-size: 0.86rem;
+      color: var(--text-main);
+    }
+
+    .badge-card {
+      display: inline-block;
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      background: #E0E7FF;
+      color: #3730A3;
+      margin-top: 10px;
+    }
+
+    /* ENGINE PROGRESSIVO (CICLOS) */
+    .engine-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .engine-step {
+      background: var(--gray-light);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      padding: 18px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .engine-step:hover, .engine-step.active {
+      background: #FFFFFF;
+      border-color: var(--secondary);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .engine-num {
+      width: 34px;
+      height: 34px;
+      background: var(--primary-light);
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin: 0 auto 10px;
+      transition: var(--transition);
+    }
+
+    .engine-step.active .engine-num {
+      background: var(--secondary);
+    }
+
+    .engine-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .engine-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .engine-detail-box {
+      margin-top: 18px;
+      background: #F0FDFA;
+      border: 1px solid #CCFBF1;
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      color: #115E59;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* QUIZ VOCACIONAL INTERATIVO */
+    .quiz-container {
+      background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+      border: 1px solid #DBEAFE;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-top: 20px;
+    }
+
+    .quiz-question {
+      margin-bottom: 22px;
+    }
+
+    .quiz-question h4 {
+      font-size: 1rem;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+    }
+
+    .quiz-opt-btn {
+      text-align: left;
+      padding: 12px 14px;
+      border: 1px solid var(--gray-border);
+      border-radius: var(--radius-sm);
+      background: #FFFFFF;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.84rem;
+      color: var(--dark);
+      transition: var(--transition);
+    }
+
+    .quiz-opt-btn:hover {
+      border-color: var(--secondary);
+      background: var(--secondary-soft);
+    }
+
+    .quiz-opt-btn.selected {
+      background: var(--secondary);
+      color: #FFFFFF;
+      border-color: var(--secondary);
+    }
+
+    .quiz-result {
+      margin-top: 20px;
+      padding: 18px;
+      background: #FFFFFF;
+      border: 2px solid var(--secondary);
+      border-radius: var(--radius-md);
+      display: none;
+      animation: fadeIn 0.3s forwards;
+    }
+
+    .quiz-result h4 {
+      color: var(--secondary);
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+    }
+
+    .quiz-result p {
+      font-size: 0.88rem;
+      color: var(--text-main);
+    }
+
+    /* FOOTER */
+    .footer-card {
+      background: #0B1E2E;
+      color: #94A3B8;
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      font-size: 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 26px;
+      margin-bottom: 22px;
+    }
+
+    .footer-col h5 {
+      color: #FFFFFF;
+      font-size: 0.92rem;
+      margin-bottom: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .footer-col p, .footer-col li {
+      font-size: 0.82rem;
+      color: #CBD5E1;
+      margin-bottom: 5px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 18px;
+      text-align: center;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 768px) {
+      .header-card { padding: 24px 20px; }
+      .title-group h1 { font-size: 1.65rem; }
+      .section-box { padding: 20px; }
+      .tab-navigation { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- CABEÇALHO -->
+  <header class="header-card">
+    <div class="author-badge-top">
+      <span class="badge-author">Guia Interativo da Formação Médica</span>
+      <span class="badge-inst">UFC • FAMED</span>
+      <span class="badge-inst">DCNs Medicina 2025</span>
+      <span class="badge-inst">Demografia Médica 2025</span>
+      <span class="badge-inst">CFM Res. 2.380/2024</span>
+    </div>
+
+    <div class="title-group">
+      <h1>A Jornada da Medicina: Do Ensino Médio à Prática Profissional</h1>
+      <p class="lead">Um guia visual e interativo para estudantes e suas famílias compreenderem a rotina acadêmica, a vivência clínica desde o 1º semestre, o internato, as especialidades e o mercado de trabalho no Brasil.</p>
+    </div>
+
+    <div class="pnp-box">
+      <strong>Pergunta Central:</strong> O que esperar da faculdade de Medicina, como se constrói a competência do futuro médico desde os primeiros dias e quais caminhos seguir após a formatura?
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-val">6 Anos</div>
+        <div class="kpi-lbl">Duração da Graduação</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val">+8.290h</div>
+        <div class="kpi-lbl">Carga Horária (UFC)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val">55</div>
+        <div class="kpi-lbl">Especialidades Médicas</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val">62</div>
+        <div class="kpi-lbl">Áreas de Atuação</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val">+635 mil</div>
+        <div class="kpi-lbl">Médicos no Brasil</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BLOCO 1: OS 3 CICLOS DO CURSO -->
+  <section class="section-box">
+    <h2 class="section-title">
+      <span class="step-pill">Estrutura</span>
+      A Trilha da Graduação Médica em 3 Grandes Ciclos
+    </h2>
+    <p class="section-desc">Pelas Diretrizes Curriculares Nacionais (DCNs 2025) e pelo Projeto Pedagógico da UFC, o curso presencial e em tempo integral articula ciência básica, atendimento à comunidade e treinamento hospitalar intensivo:</p>
+
+    <div class="engine-grid">
+      <div class="engine-step active" onclick="selectCycle(0)">
+        <div class="engine-num">1</div>
+        <div class="engine-name">Ciclo Básico</div>
+        <div class="engine-desc">1º ao 4º Semestre (Anos 1 e 2)</div>
+      </div>
+      <div class="engine-step" onclick="selectCycle(1)">
+        <div class="engine-num">2</div>
+        <div class="engine-name">Ciclo Clínico</div>
+        <div class="engine-desc">5º ao 8º Semestre (Anos 3 e 4)</div>
+      </div>
+      <div class="engine-step" onclick="selectCycle(2)">
+        <div class="engine-num">3</div>
+        <div class="engine-name">Internato Médico</div>
+        <div class="engine-desc">9º ao 12º Semestre (Anos 5 e 6)</div>
+      </div>
+    </div>
+
+    <div class="engine-detail-box" id="cycleDetailBox">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      <span id="cycleDetailText"><strong>Ciclo Básico (1º ao 4º semestre):</strong> Compreensão das bases moleculares, morfofuncionais e fisiopatológicas do corpo humano (Anatomia, Histologia, Fisiologia e Farmacologia). Prática precoce com visitas territoriais e simulação de habilidades em manequins.</span>
+    </div>
+  </section>
+
+  <!-- BLOCO 2: NAVEGADOR TEMÁTICO DO CURSO -->
+  <section class="section-box">
+    <h2 class="section-title">
+      <span class="step-pill">Exploração</span>
+      Mergulhe na Experiência Médica
+    </h2>
+
+    <div class="tab-navigation">
+      <button class="tab-btn active" onclick="switchMainTab('tab-rotina')">
+        <span>1. Rotina & "Áreas Verdes"</span>
+        <span class="tab-sub">O dia a dia do aluno</span>
+      </button>
+      <button class="tab-btn" onclick="switchMainTab('tab-clinica')">
+        <span>2. Vivência Clínica Precoce</span>
+        <span class="tab-sub">Do 1º semestre ao SUS</span>
+      </button>
+      <button class="tab-btn" onclick="switchMainTab('tab-internato')">
+        <span>3. O Internato (Estágio)</span>
+        <span class="tab-sub">Plantões & Grandes Áreas</span>
+      </button>
+      <button class="tab-btn" onclick="switchMainTab('tab-especialidades')">
+        <span>4. Especialidades & Residência</span>
+        <span class="tab-sub">55 caminhos após formado</span>
+      </button>
+      <button class="tab-btn" onclick="switchMainTab('tab-familia')">
+        <span>5. Espaço Família</span>
+        <span class="tab-sub">Rede de apoio & afeto</span>
+      </button>
+    </div>
+
+    <!-- ABA 1: ROTINA -->
+    <div id="tab-rotina" class="tab-content active">
+      <div class="cards-grid">
+        <div class="card-item">
+          <h4>🌞 Turno Matutino: Prática & Cenários Reais</h4>
+          <p>Atendimento ambulatorial supervisionado por docentes e preceptores, visitas a leitos hospitalares, discussões de casos clínicos reais ou vivência nas Unidades Básicas de Saúde da Família.</p>
+          <span class="badge-card">Contato Humano</span>
+        </div>
+        <div class="card-item">
+          <h4>📚 Turno Vespertino: Métodos Ativos & Laboratórios</h4>
+          <p>Sessões tutoriais em pequenos grupos (PBL), Team-Based Learning (TBL), laboratórios de microscopia, peças anatômicas reais e treinamento de procedimentos em simuladores.</p>
+          <span class="badge-card">Aprendizagem Ativa</span>
+        </div>
+        <div class="card-item">
+          <h4>🌿 "Áreas Verdes" & Janelas Curriculares</h4>
+          <p>Pelas diretrizes modernas e pelo PPC da UFC, a semana-padrão possui 2 turnos livres de 4h protegidos para que o aluno cuide do sono, saúde mental, esportes, lazer ou realize pesquisa e extensão.</p>
+          <span class="badge-card">Autocuidado & Bem-Estar</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 2: VIVÊNCIA CLÍNICA PRECOCE -->
+    <div id="tab-clinica" class="tab-content">
+      <div class="cards-grid">
+        <div class="card-item">
+          <h4>🏠 Visitas Domiciliares desde o 1º Semestre</h4>
+          <p>O estudante não fica preso à teoria: vai à casa de famílias em comunidades periféricas, escuta suas histórias, avalia determinantes sociais e compreende o processo de adoecimento na realidade viva.</p>
+          <span class="badge-card">Atenção Primária</span>
+        </div>
+        <div class="card-item">
+          <h4>🤖 Laboratório de Habilidades e Simulação</h4>
+          <p>Treinamento seguro de exame físico, aferição de sinais vitais, intubação e suturas em manequins robóticos e atores simulados, aprendendo com o erro antes de tocar no paciente real.</p>
+          <span class="badge-card">Segurança do Paciente</span>
+        </div>
+        <div class="card-item">
+          <h4>🌾 Extensão Universitária & CRUTAC</h4>
+          <p>Na UFC, o aluno cumpre mais de 830 horas de extensão, incluindo imersão em comunidades do interior do Ceará pelo CRUTAC, promovendo ações reais de transformação social.</p>
+          <span class="badge-card">Compromisso Social</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 3: INTERNATO -->
+    <div id="tab-internato" class="tab-content">
+      <div class="cards-grid">
+        <div class="card-item">
+          <h4>🏥 2 Anos de Treinamento em Serviço</h4>
+          <p>Ocupa 44,4% da carga do curso (3.680 horas). O interno atua como protagonista sob supervisão direta, assumindo leitos, acompanhando partos e participando de cirurgias.</p>
+          <span class="badge-card">Imersão Hospitalar</span>
+        </div>
+        <div class="card-item">
+          <h4>🔄 As 7 Grandes Áreas Obrigatórias</h4>
+          <p>Rodízios em Clínica Médica, Clínica Cirúrgica, Pediatria, Ginecologia e Obstetrícia, Medicina de Família e Comunidade, Saúde Coletiva e Saúde Mental, além de Urgência e Emergência.</p>
+          <span class="badge-card">Formação Geral</span>
+        </div>
+        <div class="card-item">
+          <h4>🚨 Plantões de até 12 Horas</h4>
+          <p>Vivência nos setores de pronto-socorro, UTI e UPAs 24h, desenvolvendo raciocínio rápido para estabilizar casos graves e prestar o primeiro socorro seguro.</p>
+          <span class="badge-card">Pronto-Atendimento</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 4: ESPECIALIDADES & RESIDÊNCIA -->
+    <div id="tab-especialidades" class="tab-content">
+      <div class="cards-grid">
+        <div class="card-item">
+          <h4>🎓 O Médico Generalista</h4>
+          <p>Ao terminar os 6 anos, o egresso está apto a atuar na atenção primária, em unidades básicas, plantões em pronto-atendimento e consultórios gerais com registro pleno no CRM.</p>
+          <span class="badge-card">Diploma de Médico</span>
+        </div>
+        <div class="card-item">
+          <h4>🏆 Residência Médica (O Padrão-Ouro)</h4>
+          <p>Programa de pós-graduação em serviço de 2 a 5 anos com bolsa federal e dedicação de 60h semanais. É a via mais sólida para obter o título de Especialista reconhecido pelo MEC/AMB/CFM.</p>
+          <span class="badge-card">Pós-Graduação</span>
+        </div>
+        <div class="card-item">
+          <h4>📊 As 55 Especialidades Médicas Oficiais</h4>
+          <p>Divididas entre áreas Clínicas (Cardio, Neuro, Psiquiatria), Cirúrgicas (Geral, Plástica, Ortopedia), Diagnósticas (Radiologia, Patologia) e de Urgência/Intensiva (Resolução CFM 2.380/2024).</p>
+          <span class="badge-card">CFM / AMB</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 5: ESPAÇO FAMÍLIA -->
+    <div id="tab-familia" class="tab-content">
+      <div class="cards-grid">
+        <div class="card-item">
+          <h4>❤️ Compreensão das Ausências</h4>
+          <p>A faculdade exige horas extras de estudo e, nos anos finais, plantões noturnos e em feriados. O apoio familiar sem cobranças excessivas é fundamental para a saúde mental do estudante.</p>
+          <span class="badge-card">Suporte Afetivo</span>
+        </div>
+        <div class="card-item">
+          <h4>👂 Escuta Atenta e Não Julgadora</h4>
+          <p>O estudante lida precocemente com a dor, o sofrimento e a finitude de vidas humanas. Ter em casa um ambiente acolhedor para desabafar previne o esgotamento (Burnout).</p>
+          <span class="badge-card">Acolhimento</span>
+        </div>
+        <div class="card-item">
+          <h4>🥗 Incentivo ao Sono e Boa Nutrição</h4>
+          <p>Famílias ajudam ao zelar pela rotina de repouso e alimentação saudável. O médico bem cuidado cuida infinitamente melhor dos seus futuros pacientes!</p>
+          <span class="badge-card">Saúde Integral</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCO 3: QUIZ INTERATIVO VOCACIONAL -->
+  <section class="section-box">
+    <h2 class="section-title">
+      <span class="step-pill">Interativo</span>
+      Simulador Vocacional: Qual Área da Medicina Combina com Você?
+    </h2>
+    <p class="section-desc">Responda às 2 perguntas rápidas para descobrir quais ramos da medicina têm mais afinidade com seu estilo de pensar e agir:</p>
+
+    <div class="quiz-container">
+      <div class="quiz-question">
+        <h4>1. Diante de um problema complexo e misterioso, o que você prefere fazer?</h4>
+        <div class="quiz-options">
+          <button class="quiz-opt-btn" onclick="selectQuiz(1, 'A', this)">Investigar a fundo sinais, exames e sintomas até achar o diagnóstico exato.</button>
+          <button class="quiz-opt-btn" onclick="selectQuiz(1, 'B', this)">Intervir diretamente com as mãos, solucionar de forma prática e imediata.</button>
+          <button class="quiz-opt-btn" onclick="selectQuiz(1, 'C', this)">Ouvir a história de vida da pessoa e acompanhar sua família a longo prazo.</button>
+          <button class="quiz-opt-btn" onclick="selectQuiz(1, 'D', this)">Utilizar dados visuais, tecnologia avançada e exames de ponta.</button>
+        </div>
+      </div>
+
+      <div class="quiz-question">
+        <h4>2. Em qual ambiente de trabalho você se sentiria mais realizado?</h4>
+        <div class="quiz-options">
+          <button class="quiz-opt-btn" onclick="selectQuiz(2, 'A', this)">Consultórios, ambulatórios ou enfermarias discutindo casos clínicos desafiadores.</button>
+          <button class="quiz-opt-btn" onclick="selectQuiz(2, 'B', this)">Centros cirúrgicos de alta precisão ou pronto-socorro de trauma.</button>
+          <button class="quiz-opt-btn" onclick="selectQuiz(2, 'C', this)">Postos de saúde comunitários, maternidades ou consultórios de pediatria.</button>
+          <button class="quiz-opt-btn" onclick="selectQuiz(2, 'D', this)">Salas de laudo de ressonância/tomografia, medicina intervencionista ou UTI.</button>
+        </div>
+      </div>
+
+      <div class="quiz-result" id="quizResultBox">
+        <h4 id="quizResultTitle">Seu Perfil Sugerido</h4>
+        <p id="quizResultDesc">Selecione as opções acima para ver o resultado.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ & CRÉDITOS INSTITUCIONAIS -->
+  <footer class="footer-card">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>Afiliação & Contexto Acadêmico</h5>
+        <p><strong>Universidade Federal do Ceará (UFC)</strong></p>
+        <p>Faculdade de Medicina (FAMED) • Campus Porangabuçu</p>
+        <p>Projeto Pedagógico do Curso de Medicina (PPC 2025.1)</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Marcos Normativos & Científicos</h5>
+        <ul>
+          <li>• Diretrizes Curriculares Nacionais de Medicina (DCNs 2025 - Res. CNE/CES 3/2025)</li>
+          <li>• Demografia Médica no Brasil 2025 (FMUSP • AMB • Ministério da Saúde)</li>
+          <li>• Relação de Especialidades Médicas (Resolução CFM nº 2.380/2024)</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Público-Alvo</h5>
+        <p>Estudantes do Ensino Médio, pré-vestibulandos, calouros de Medicina e familiares em busca de orientação vocacional sólida e transparente.</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      Guia Interativo de Orientação Médica • Desenvolvido com HTML5/CSS3/JS Nativo • Fortaleza/CE • Todos os direitos reservados.
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // DETALHES DOS 3 CICLOS
+  const cycleDetails = [
+    "<strong>Ciclo Básico (1º ao 4º semestre):</strong> Compreensão das bases moleculares, morfofuncionais e fisiopatológicas do corpo humano (Anatomia, Histologia, Fisiologia e Farmacologia). Prática precoce com visitas territoriais e simulação de habilidades em manequins.",
+    "<strong>Ciclo Clínico (5º ao 8º semestre):</strong> Aprendizagem da Semiologia (entrevista e exame físico detalhado). O estudante atende pacientes ambulatoriais nas especialidades (Cardio, Pneumo, Gastro, Pediatria, Ginecologia, Nefro, Reumato, Psiquiatria) com acompanhamento direto de professores.",
+    "<strong>Internato Médico (9º ao 12º semestre):</strong> Estágio prático obrigatório em serviço com 40 horas semanais e plantões de 12h. O estudante vivencia 2 anos de rodízios no Hospital das Clínicas (HUWC), Maternidade (MEAC), hospitais de urgência e postos de saúde."
+  ];
+
+  function selectCycle(idx) {
+    const steps = document.querySelectorAll('.engine-step');
+    steps.forEach((el, i) => el.classList.toggle('active', i === idx));
+    document.getElementById('cycleDetailText').innerHTML = cycleDetails[idx];
+  }
+
+  // NAVEGAÇÃO DE ABAS PRINCIPAIS
+  function switchMainTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+    document.getElementById(tabId).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  // QUIZ VOCACIONAL
+  let quizAnswers = { q1: null, q2: null };
+
+  const profiles = {
+    A: {
+      title: "🩺 Perfil Clínico & Investigativo",
+      desc: "Você tem grande vocação para a Clínica Médica e suas subespecialidades (Cardiologia, Neurologia, Endocrinologia, Nefrologia, Reumatologia, Dermatologia). Seu forte é o raciocínio diagnóstico minucioso, a correlação entre sintomas e o tratamento humanizado a longo prazo."
+    },
+    B: {
+      title: "🔪 Perfil Cirúrgico & Intervencionista",
+      desc: "Sua vocação combina com Cirurgia Geral, Ortopedia e Traumatologia, Cirurgia Plástica, Neurocirurgia ou Oftalmologia. Você gosta de destreza manual, foco absoluto sob pressão e de solucionar o problema do paciente de maneira prática e imediata no centro cirúrgico."
+    },
+    C: {
+      title: "👨‍👩‍👧‍👦 Perfil Humanista, Comunitário & Materno-Infantil",
+      desc: "Você tem o coração na Medicina de Família e Comunidade, Pediatria, Ginecologia e Obstetrícia ou Psiquiatria. Sua vocação brilha ao acolher vulnerabilidades, escutar famílias, promover a saúde na comunidade e proteger todas as fases do ciclo da vida."
+    },
+    D: {
+      title: "💻 Perfil Tecnológico, Diagnóstico & Intensivo",
+      desc: "Sua afinidade é alta com Radiologia e Diagnóstico por Imagem, Patologia Clínica, Medicina Nuclear, Medicina Intensiva (UTI) ou Medicina de Emergência. Você se destaca pela agilidade com dados, tecnologia médica e suporte a decisões críticas que salvam vidas."
+    }
+  };
+
+  function selectQuiz(questionNum, optionKey, btn) {
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.quiz-opt-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+
+    if (questionNum === 1) quizAnswers.q1 = optionKey;
+    if (questionNum === 2) quizAnswers.q2 = optionKey;
+
+    if (quizAnswers.q1 && quizAnswers.q2) {
+      const chosen = (quizAnswers.q1 === quizAnswers.q2) ? quizAnswers.q1 : quizAnswers.q1;
+      const res = profiles[chosen];
+      const resBox = document.getElementById('quizResultBox');
+      document.getElementById('quizResultTitle').innerText = res.title;
+      document.getElementById('quizResultDesc').innerText = res.desc;
+      resBox.style.display = 'block';
+    }
+  }
+</script>
+
+</body>
+</html>
