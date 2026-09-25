@@ -770,23 +770,113 @@
     }
     .specialty-list {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.55rem 1rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
       margin: 0;
       padding: 0;
       list-style: none;
+      align-items: start;
     }
     .specialty-list li {
       min-width: 0;
-      padding: 0.55rem 0.7rem;
+      padding: 0;
       color: #334155;
-      background: #f8fafc;
-      border-left: 3px solid #9bd7d3;
-      border-radius: 6px;
+      background: #ffffff;
+      border: 1px solid #d7e5e7;
+      border-radius: 10px;
       font-size: 0.84rem;
       overflow-wrap: anywhere;
+      overflow: hidden;
     }
     .specialty-list li[hidden] { display: none; }
+    .specialty-item details { background: #ffffff; }
+    .specialty-item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      min-height: 52px;
+      padding: 0.75rem 0.85rem;
+      cursor: pointer;
+      color: var(--brand-blue);
+      background: #f8fafc;
+      font-weight: 750;
+      list-style: none;
+    }
+    .specialty-item summary::-webkit-details-marker { display: none; }
+    .specialty-item summary::after {
+      content: '+';
+      flex: 0 0 auto;
+      color: var(--brand-teal);
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+    .specialty-item details[open] summary {
+      background: #eefafa;
+      border-bottom: 1px solid #d7e5e7;
+    }
+    .specialty-item details[open] summary::after { content: '−'; }
+    .specialty-name { flex: 1 1 auto; min-width: 0; }
+    .specialty-duration {
+      flex: 0 0 auto;
+      padding: 0.2rem 0.5rem;
+      color: #0f766e;
+      background: #ccfbf1;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .specialty-info {
+      display: grid;
+      gap: 0.8rem;
+      padding: 0.9rem;
+    }
+    .specialty-route,
+    .related-areas {
+      display: grid;
+      gap: 0.28rem;
+      min-width: 0;
+    }
+    .specialty-route strong,
+    .related-areas > strong {
+      color: #0c394c;
+      font-size: 0.78rem;
+    }
+    .specialty-route span,
+    .related-areas p {
+      margin: 0;
+      color: #475569;
+      line-height: 1.5;
+    }
+    .area-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .area-tags span {
+      padding: 0.2rem 0.48rem;
+      color: #0e7490;
+      background: #ecfeff;
+      border: 1px solid #bae6fd;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .specialty-source {
+      color: #64748b;
+      font-size: 0.68rem;
+    }
+    .transversal-areas {
+      margin: 0 0 1rem;
+      padding: 0.8rem 0.9rem;
+      color: #35515b;
+      background: #f0fdfa;
+      border-left: 4px solid var(--brand-teal);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
     .search-status {
       min-height: 1.2rem;
       margin: -0.4rem 0 0.8rem;
@@ -1189,7 +1279,7 @@
       .ramo-content-box { grid-template-columns: 1fr; }
       .ramo-icon-preview { display: none; }
       .panorama-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .specialty-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .specialty-list { grid-template-columns: minmax(0, 1fr); }
       .hero-section { padding: 3rem 1rem 2rem; }
       .top-header { padding: 0.5rem 1rem; }
       .header-logo { height: 38px; }
@@ -1809,22 +1899,837 @@
         <details class="career-details">
           <summary>Consulte as 55 especialidades médicas reconhecidas</summary>
           <div class="career-details-content">
-            <p>Digite parte do nome para filtrar. A busca complementa a navegação; a lista inteira permanece disponível mesmo sem JavaScript.</p>
+            <p>Digite parte do nome para filtrar e abra cada especialidade para consultar duração, vias de formação e áreas de atuação relacionadas. Os painéis expansíveis funcionam mesmo sem JavaScript.</p>
             <label for="specialty-search" class="sr-only">Pesquisar especialidade médica</label>
             <input id="specialty-search" class="specialty-search" type="search" placeholder="Ex.: pediatria, cirurgia, medicina..." autocomplete="off">
             <p id="specialty-search-status" class="search-status" aria-live="polite">55 especialidades exibidas</p>
+            <div class="transversal-areas" role="note"><strong>Áreas transversais:</strong> Administração em Saúde e Auditoria Médica admitem formação ou titulação prévia em diferentes especialidades, conforme os requisitos próprios da resolução. Por isso, não são repetidas em todos os painéis.</div>
             <ul id="specialty-list" class="specialty-list">
-              <li>Acupuntura</li><li>Alergia e imunologia</li><li>Anestesiologia</li><li>Angiologia</li><li>Cardiologia</li>
-              <li>Cirurgia cardiovascular</li><li>Cirurgia da mão</li><li>Cirurgia de cabeça e pescoço</li><li>Cirurgia do aparelho digestivo</li><li>Cirurgia geral</li>
-              <li>Cirurgia oncológica</li><li>Cirurgia pediátrica</li><li>Cirurgia plástica</li><li>Cirurgia torácica</li><li>Cirurgia vascular</li>
-              <li>Clínica médica</li><li>Coloproctologia</li><li>Dermatologia</li><li>Endocrinologia e metabologia</li><li>Endoscopia</li>
-              <li>Gastroenterologia</li><li>Genética médica</li><li>Geriatria</li><li>Ginecologia e obstetrícia</li><li>Hematologia e hemoterapia</li>
-              <li>Homeopatia</li><li>Infectologia</li><li>Mastologia</li><li>Medicina de emergência</li><li>Medicina de família e comunidade</li>
-              <li>Medicina do trabalho</li><li>Medicina do tráfego</li><li>Medicina esportiva</li><li>Medicina física e reabilitação</li><li>Medicina intensiva</li>
-              <li>Medicina legal e perícia médica</li><li>Medicina nuclear</li><li>Medicina preventiva e social</li><li>Nefrologia</li><li>Neurocirurgia</li>
-              <li>Neurologia</li><li>Nutrologia</li><li>Oftalmologia</li><li>Oncologia clínica</li><li>Ortopedia e traumatologia</li>
-              <li>Otorrinolaringologia</li><li>Patologia</li><li>Patologia clínica/medicina laboratorial</li><li>Pediatria</li><li>Pneumologia</li>
-              <li>Psiquiatria</li><li>Radiologia e diagnóstico por imagem</li><li>Radioterapia</li><li>Reumatologia</li><li>Urologia</li>
+              <li class="specialty-item" data-specialty="Acupuntura">
+                <details>
+                  <summary><span class="specialty-name">Acupuntura</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Acupuntura</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Colégio Médico de Acupuntura</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Dor</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Alergia e imunologia">
+                <details>
+                  <summary><span class="specialty-name">Alergia e imunologia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Alergia e Imunologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Associação Brasileira de Alergia e Imunologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Alergia e imunologia pediátrica</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Anestesiologia">
+                <details>
+                  <summary><span class="specialty-name">Anestesiologia</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Anestesiologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Anestesiologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Dor</span><span>Medicina aeroespacial</span><span>Medicina paliativa</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Angiologia">
+                <details>
+                  <summary><span class="specialty-name">Angiologia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Angiologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Angiologia e Cirurgia Vascular</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Angiorradiologia e cirurgia endovascular</span><span>Ecografia vascular com doppler</span><span>Radiologia intervencionista e angiorradiologia</span><span>Ultrassonografia geral</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Cardiologia">
+                <details>
+                  <summary><span class="specialty-name">Cardiologia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Cardiologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Cardiologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Cardiologia pediátrica</span><span>Ecocardiografia</span><span>Ecografia vascular com doppler</span><span>Eletrofisiologia clínica invasiva</span><span>Ergometria</span><span>Estimulação cardíaca eletrônica implantável</span><span>Hemodinâmica e cardiologia intervencionista</span><span>Medicina aeroespacial</span><span>Medicina do sono</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Cirurgia cardiovascular">
+                <details>
+                  <summary><span class="specialty-name">Cirurgia cardiovascular</span><span class="specialty-duration">5 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Cirurgia Cardiovascular</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Cirurgia Cardiovascular</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Estimulação cardíaca eletrônica implantável</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Cirurgia da mão">
+                <details>
+                  <summary><span class="specialty-name">Cirurgia da mão</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Cirurgia da Mão</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Cirurgia da Mão</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <p>Nenhuma área de atuação específica relaciona esta especialidade como requisito na Resolução CFM nº 2.380/2024.</p>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Cirurgia de cabeça e pescoço">
+                <details>
+                  <summary><span class="specialty-name">Cirurgia de cabeça e pescoço</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Cirurgia de Cabeça e Pescoço</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Cirurgia de Cabeça e Pescoço</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Cirurgia crânio-maxilo-facial</span><span>Medicina paliativa</span><span>Oncogenética</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Cirurgia do aparelho digestivo">
+                <details>
+                  <summary><span class="specialty-name">Cirurgia do aparelho digestivo</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Cirurgia do Aparelho Digestivo</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Colégio Brasileiro de Cirurgia Digestiva</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Cirurgia bariátrica</span><span>Cirurgia videolaparoscópica</span><span>Endoscopia digestiva</span><span>Nutrição parenteral e enteral</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Cirurgia geral">
+                <details>
+                  <summary><span class="specialty-name">Cirurgia geral</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Cirurgia Geral</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Colégio Brasileiro de Cirurgiões</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Cirurgia bariátrica</span><span>Cirurgia do trauma</span><span>Cirurgia videolaparoscópica</span><span>Endoscopia digestiva</span><span>Medicina aeroespacial</span><span>Nutrição parenteral e enteral</span><span>Ultrassonografia geral</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Cirurgia oncológica">
+                <details>
+                  <summary><span class="specialty-name">Cirurgia oncológica</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Cirurgia Oncológica</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Cirurgia Oncológica</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Medicina paliativa</span><span>Oncogenética</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Cirurgia pediátrica">
+                <details>
+                  <summary><span class="specialty-name">Cirurgia pediátrica</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Cirurgia Pediátrica</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Cirurgia Pediátrica</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Medicina aeroespacial</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Cirurgia plástica">
+                <details>
+                  <summary><span class="specialty-name">Cirurgia plástica</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Cirurgia Plástica</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Cirurgia Plástica</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Atendimento ao queimado</span><span>Cirurgia crânio-maxilo-facial</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Cirurgia torácica">
+                <details>
+                  <summary><span class="specialty-name">Cirurgia torácica</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Cirurgia Torácica</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Cirurgia Torácica</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Endoscopia respiratória</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Cirurgia vascular">
+                <details>
+                  <summary><span class="specialty-name">Cirurgia vascular</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Cirurgia Vascular</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Angiologia e Cirurgia Vascular</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Angiorradiologia e cirurgia endovascular</span><span>Ecografia vascular com doppler</span><span>Radiologia intervencionista e angiorradiologia</span><span>Ultrassonografia geral</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Clínica médica">
+                <details>
+                  <summary><span class="specialty-name">Clínica médica</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Clínica Médica</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Clínica Médica</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Dor</span><span>Hansenologia</span><span>Hepatologia</span><span>Medicina aeroespacial</span><span>Medicina do sono</span><span>Medicina paliativa</span><span>Nutrição parenteral e enteral</span><span>Toxicologia médica</span><span>Ultrassonografia geral</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Coloproctologia">
+                <details>
+                  <summary><span class="specialty-name">Coloproctologia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Coloproctologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Coloproctologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Endoscopia digestiva</span><span>Oncogenética</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Dermatologia">
+                <details>
+                  <summary><span class="specialty-name">Dermatologia</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Dermatologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Dermatologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Hansenologia</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Endocrinologia e metabologia">
+                <details>
+                  <summary><span class="specialty-name">Endocrinologia e metabologia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Endocrinologia e Metabologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Endocrinologia e Metabologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Densitometria óssea</span><span>Endocrinologia pediátrica</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Endoscopia">
+                <details>
+                  <summary><span class="specialty-name">Endoscopia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Endoscopia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Endoscopia Digestiva</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Endoscopia digestiva</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Gastroenterologia">
+                <details>
+                  <summary><span class="specialty-name">Gastroenterologia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Gastroenterologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Federação Brasileira de Gastroenterologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Endoscopia digestiva</span><span>Gastroenterologia pediátrica</span><span>Hepatologia</span><span>Nutrição parenteral e enteral</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Genética médica">
+                <details>
+                  <summary><span class="specialty-name">Genética médica</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Genética Médica</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Genética Médica</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Oncogenética</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Geriatria">
+                <details>
+                  <summary><span class="specialty-name">Geriatria</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Geriatria</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Geriatria e Gerontologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Medicina paliativa</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Ginecologia e obstetrícia">
+                <details>
+                  <summary><span class="specialty-name">Ginecologia e obstetrícia</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Ginecologia e Obstetrícia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB / Federação Brasileira das Sociedades de Ginecologia e Obstetrícia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Densitometria óssea</span><span>Endoscopia ginecológica</span><span>Mamografia</span><span>Medicina fetal</span><span>Reprodução assistida</span><span>Sexologia</span><span>Ultrassonografia em ginecologia e obstetrícia</span><span>Ultrassonografia geral</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Hematologia e hemoterapia">
+                <details>
+                  <summary><span class="specialty-name">Hematologia e hemoterapia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Hematologia e Hemoterapia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Associação Brasileira de Hematologia e Hemoterapia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Hematologia e hemoterapia pediátrica</span><span>Oncogenética</span><span>Oncologia pediátrica</span><span>Transplante de medula óssea</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Homeopatia">
+                <details>
+                  <summary><span class="specialty-name">Homeopatia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Homeopatia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Associação Médica Homeopática Brasileira</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <p>Nenhuma área de atuação específica relaciona esta especialidade como requisito na Resolução CFM nº 2.380/2024.</p>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Infectologia">
+                <details>
+                  <summary><span class="specialty-name">Infectologia</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Infectologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Infectologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Hansenologia</span><span>Hepatologia</span><span>Infectologia hospitalar</span><span>Infectologia pediátrica</span><span>Medicina tropical</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Mastologia">
+                <details>
+                  <summary><span class="specialty-name">Mastologia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Mastologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Mastologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Mamografia</span><span>Medicina paliativa</span><span>Oncogenética</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Medicina de emergência">
+                <details>
+                  <summary><span class="specialty-name">Medicina de emergência</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Medicina de Emergência</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso AMB/Associação Brasileira de Medicina de Emergência</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Emergência pediátrica</span><span>Medicina aeroespacial</span><span>Ultrassonografia geral</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Medicina de família e comunidade">
+                <details>
+                  <summary><span class="specialty-name">Medicina de família e comunidade</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Medicina de Família e Comunidade</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Medicina de Família e Comunidade</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Hansenologia</span><span>Medicina paliativa</span><span>Ultrassonografia geral</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Medicina do trabalho">
+                <details>
+                  <summary><span class="specialty-name">Medicina do trabalho</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Medicina do Trabalho</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Associação Nacional de Medicina do Trabalho</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Medicina aeroespacial</span><span>Toxicologia médica</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Medicina do tráfego">
+                <details>
+                  <summary><span class="specialty-name">Medicina do tráfego</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Medicina do Tráfego</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Associação Brasileira de Medicina do Tráfego</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Medicina aeroespacial</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Medicina esportiva">
+                <details>
+                  <summary><span class="specialty-name">Medicina esportiva</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Medicina Esportiva</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Medicina do Exercício e Esporte</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <p>Nenhuma área de atuação específica relaciona esta especialidade como requisito na Resolução CFM nº 2.380/2024.</p>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Medicina física e reabilitação">
+                <details>
+                  <summary><span class="specialty-name">Medicina física e reabilitação</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Medicina Física e Reabilitação</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Medicina Física e Reabilitação</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Dor</span><span>Neurofisiologia clínica</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Medicina intensiva">
+                <details>
+                  <summary><span class="specialty-name">Medicina intensiva</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Medicina Intensiva</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Associação de Medicina Intensiva Brasileira</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Medicina aeroespacial</span><span>Medicina intensiva pediátrica</span><span>Medicina paliativa</span><span>Nutrição parenteral e enteral</span><span>Toxicologia médica</span><span>Ultrassonografia geral</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Medicina legal e perícia médica">
+                <details>
+                  <summary><span class="specialty-name">Medicina legal e perícia médica</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Medicina Legal e Perícia Médica</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Associação Brasileira de Medicina Legal e Perícias Médicas</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <p>Nenhuma área de atuação específica relaciona esta especialidade como requisito na Resolução CFM nº 2.380/2024.</p>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Medicina nuclear">
+                <details>
+                  <summary><span class="specialty-name">Medicina nuclear</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Medicina Nuclear</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Medicina Nuclear</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Densitometria óssea</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Medicina preventiva e social">
+                <details>
+                  <summary><span class="specialty-name">Medicina preventiva e social</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Medicina Preventiva e Social</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Associação Brasileira de Medicina Preventiva e Administração em Saúde</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Hansenologia</span><span>Ultrassonografia geral</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Nefrologia">
+                <details>
+                  <summary><span class="specialty-name">Nefrologia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Nefrologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Nefrologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Medicina paliativa</span><span>Nefrologia pediátrica</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Neurocirurgia">
+                <details>
+                  <summary><span class="specialty-name">Neurocirurgia</span><span class="specialty-duration">5 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Neurocirurgia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Neurocirurgia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Dor</span><span>Neurofisiologia clínica</span><span>Neurorradiologia</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Neurologia">
+                <details>
+                  <summary><span class="specialty-name">Neurologia</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Neurologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Academia Brasileira de Neurologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Dor</span><span>Hansenologia</span><span>Medicina do sono</span><span>Medicina paliativa</span><span>Neurofisiologia clínica</span><span>Neurologia pediátrica</span><span>Neurorradiologia</span><span>Oncogenética</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Nutrologia">
+                <details>
+                  <summary><span class="specialty-name">Nutrologia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Nutrologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Associação Brasileira de Nutrologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Nutrição parenteral e enteral</span><span>Nutrição parenteral e enteral pediátrica</span><span>Nutrologia pediátrica</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Oftalmologia">
+                <details>
+                  <summary><span class="specialty-name">Oftalmologia</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Oftalmologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Conselho Brasileiro de Oftalmologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <p>Nenhuma área de atuação específica relaciona esta especialidade como requisito na Resolução CFM nº 2.380/2024.</p>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Oncologia clínica">
+                <details>
+                  <summary><span class="specialty-name">Oncologia clínica</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Oncologia Clínica</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Oncologia Clínica</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Medicina paliativa</span><span>Oncogenética</span><span>Oncologia pediátrica</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Ortopedia e traumatologia">
+                <details>
+                  <summary><span class="specialty-name">Ortopedia e traumatologia</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Ortopedia e Traumatologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Ortopedia e Traumatologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Densitometria óssea</span><span>Dor</span><span>Medicina aeroespacial</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Otorrinolaringologia">
+                <details>
+                  <summary><span class="specialty-name">Otorrinolaringologia</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Otorrinolaringologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Associação Brasileira de Otorrinolaringologia e Cirurgia Cérvico- Facial</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Cirurgia crânio-maxilo-facial</span><span>Foniatria</span><span>Medicina aeroespacial</span><span>Medicina do sono</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Patologia">
+                <details>
+                  <summary><span class="specialty-name">Patologia</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Patologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Patologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Citopatologia</span><span>Oncogenética</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Patologia clínica/medicina laboratorial">
+                <details>
+                  <summary><span class="specialty-name">Patologia clínica/medicina laboratorial</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Patologia Clínica/Medicina Laboratorial</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Patologia Clínica/Medicina Laboratorial</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Oncogenética</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Pediatria">
+                <details>
+                  <summary><span class="specialty-name">Pediatria</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Pediatria</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Pediatria</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Alergia e imunologia pediátrica</span><span>Cardiologia pediátrica</span><span>Dor</span><span>Ecocardiografia</span><span>Emergência pediátrica</span><span>Endocrinologia pediátrica</span><span>Endoscopia respiratória</span><span>Gastroenterologia pediátrica</span><span>Hematologia e hemoterapia pediátrica</span><span>Hemodinâmica e cardiologia intervencionista</span><span>Infectologia pediátrica</span><span>Medicina aeroespacial</span><span>Medicina do adolescente</span><span>Medicina do sono</span><span>Medicina intensiva pediátrica</span><span>Medicina paliativa</span><span>Nefrologia pediátrica</span><span>Neonatologia</span><span>Neurofisiologia clínica</span><span>Neurologia pediátrica</span><span>Nutrição parenteral e enteral</span><span>Nutrição parenteral e enteral pediátrica</span><span>Nutrologia pediátrica</span><span>Oncologia pediátrica</span><span>Pneumologia pediátrica</span><span>Reumatologia pediátrica</span><span>Toxicologia médica</span><span>Ultrassonografia geral</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Pneumologia">
+                <details>
+                  <summary><span class="specialty-name">Pneumologia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Pneumologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Pneumologia e Tisiologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Endoscopia respiratória</span><span>Medicina do sono</span><span>Pneumologia pediátrica</span><span>Toxicologia médica</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Psiquiatria">
+                <details>
+                  <summary><span class="specialty-name">Psiquiatria</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Psiquiatria</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Associação Brasileira de Psiquiatria</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Medicina aeroespacial</span><span>Medicina do sono</span><span>Psicogeriatria</span><span>Psicoterapia</span><span>Psiquiatria da infância e adolescência</span><span>Psiquiatria forense</span><span>Sexologia</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Radiologia e diagnóstico por imagem">
+                <details>
+                  <summary><span class="specialty-name">Radiologia e diagnóstico por imagem</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Radiologia e Diagnóstico por Imagem</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Colégio Brasileiro de Radiologia e Diagnóstico por Imagem</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Angiorradiologia e cirurgia endovascular</span><span>Ecografia vascular com doppler</span><span>Neurorradiologia</span><span>Radiologia intervencionista e angiorradiologia</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Radioterapia">
+                <details>
+                  <summary><span class="specialty-name">Radioterapia</span><span class="specialty-duration">4 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Radioterapia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Radioterapia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Oncogenética</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Reumatologia">
+                <details>
+                  <summary><span class="specialty-name">Reumatologia</span><span class="specialty-duration">2 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Reumatologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Reumatologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <div class="area-tags"><span>Densitometria óssea</span><span>Dor</span><span>Reumatologia pediátrica</span></div>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
+              <li class="specialty-item" data-specialty="Urologia">
+                <details>
+                  <summary><span class="specialty-name">Urologia</span><span class="specialty-duration">3 anos</span></summary>
+                  <div class="specialty-info">
+                    <div class="specialty-route"><strong>Residência Médica — CNRM</strong>
+                      <span>Programa de Residência Médica em Urologia</span></div>
+                    <div class="specialty-route"><strong>Título de especialista — AMB</strong>
+                      <span>Concurso do Convênio AMB/Sociedade Brasileira de Urologia</span></div>
+                    <div class="related-areas"><strong>Áreas de atuação relacionadas</strong>
+                      <p>Nenhuma área de atuação específica relaciona esta especialidade como requisito na Resolução CFM nº 2.380/2024.</p>
+                    </div>
+                    <span class="specialty-source">Fonte: Resolução CFM nº 2.380/2024, listas C e D.</span>
+                  </div>
+                </details>
+              </li>
             </ul>
           </div>
         </details>
@@ -2007,7 +2912,7 @@
     const specialtyItems=[...specialtyList.querySelectorAll('li')];
     specialtySearch.addEventListener('input',()=>{
       const term=normalize(specialtySearch.value);let visible=0;
-      specialtyItems.forEach(item=>{const match=!term||normalize(item.textContent).includes(term);item.hidden=!match;if(match)visible++;});
+      specialtyItems.forEach(item=>{const match=!term||normalize(item.dataset.specialty||item.textContent).includes(term);item.hidden=!match;if(match)visible++;});
       specialtyStatus.textContent=term?`${visible} especialidade${visible===1?'':'s'} encontrada${visible===1?'':'s'}`:'55 especialidades exibidas';
     });
   }
