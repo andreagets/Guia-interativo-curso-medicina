@@ -14,7 +14,9 @@
       --radius-sm: 8px;
     }
 
-    body {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
       font-family: var(--font-body);
       color: var(--text);
       background-color: var(--bg);
@@ -1099,6 +1101,7 @@
     .range-input::-webkit-slider-thumb:hover {
       transform: scale(1.15);
     }
+    .range-input:focus-visible { outline: 3px solid var(--brand-blue); outline-offset: 6px; }
     .range-input::-moz-range-thumb {
       width: 24px;
       height: 24px;
@@ -1109,13 +1112,16 @@
       border: 2px solid #ffffff;
     }
     .slider-labels-row {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.35rem;
       margin-top: 0.5rem;
       font-size: 0.78rem;
       color: #64748b;
       font-weight: 600;
     }
+    .slider-labels-row span:nth-child(2) { text-align: center; }
+    .slider-labels-row span:nth-child(3) { text-align: right; }
     .quiz-nav-btns {
       display: flex;
       justify-content: space-between;
@@ -1346,6 +1352,11 @@
       .quiz-nav-btns { flex-direction: column-reverse; }
       .quiz-nav-btns .btn-main,
       .quiz-nav-btns .btn-secondary { width: 100%; justify-content: center; }
+      .slider-container { padding: 1rem 0.8rem; }
+      .slider-header { align-items: center; }
+      .slider-label { flex: 1 1 9rem; }
+      .slider-score-display { flex: 0 0 auto; }
+      .slider-labels-row { font-size: 0.7rem; line-height: 1.25; }
       .footer-bottom { flex-direction: column; align-items: flex-start; }
       h1, h2, h3, h4, p, span, a, button { overflow-wrap: break-word; }
     }
@@ -1377,9 +1388,13 @@
 .no-js .timeline-tabs,.no-js #eixo-content-target,.no-js .areas-grid-interactive,.no-js #area-detail-box,.no-js #ramos-nav,.no-js #ramo-content-panel,.no-js .quiz-card { display:none!important; }
 .no-js .quiz-fallback { display:block; }
 .quiz-fallback { max-width:820px; margin:1rem auto; padding:1.25rem; border:1px solid #d6e9e7; border-radius:14px; background:#fff; }
-.quiz-fallback details { border-top:1px solid #e2e8f0; padding:.65rem 0; }
-.quiz-fallback summary { cursor:pointer; font-weight:650; color:#0b676e; }
-.quiz-fallback p { color:#475569; }
+.quiz-fallback details { border-top:1px solid #e2e8f0; padding:.85rem 0; }
+.quiz-fallback summary { cursor:pointer; font-weight:650; color:#0b676e; padding:.35rem 0; }
+.quiz-fallback summary:focus-visible { outline:2px solid #0f828a; outline-offset:3px; }
+.quiz-fallback h3 { color:var(--brand-blue); font-size:1.15rem; line-height:1.4; }
+.quiz-fallback p { color:#475569; line-height:1.55; }
+.quiz-fallback .slider-container { margin:1rem 0 .25rem; }
+.quiz-fallback .slider-label { display:block; margin-bottom:1rem; }
 @media(max-width:1024px) {
   .no-js .header-inner { display:flex; align-items:center; justify-content:space-between; }
   .no-js #main-navigation { display:none!important; }
@@ -2763,7 +2778,90 @@
           <strong>Aviso importante:</strong> esta atividade tem caráter exclusivamente pedagógico e reflexivo. Não constitui teste vocacional, instrumento psicométrico validado, avaliação de aptidão ou diagnóstico profissional. Seu resultado não deve ser utilizado isoladamente para decidir sobre a escolha do curso. O exercício foi elaborado para apoiar a reflexão sobre interesses e características relacionadas à formação e à atuação em Medicina.
         </div>
 
-        <div class="quiz-fallback" role="note"><strong>Explore as oito perguntas de reflexão</strong><p>Esta pré-visualização pode bloquear o cálculo da pontuação. As perguntas permanecem acessíveis abaixo; para utilizar a atividade com resultado reflexivo, abra a página em um navegador que execute JavaScript.</p><details><summary>1. Curiosidade científica</summary><p>Você se interessa pelo corpo humano e pelos processos de saúde e doença?</p></details><details><summary>2. Escuta e empatia</summary><p>Você se dispõe a ouvir pessoas em momentos de preocupação ou sofrimento?</p></details><details><summary>3. Estudo contínuo</summary><p>Você aceita continuar aprendendo ao longo da vida profissional?</p></details><details><summary>4. Responsabilidade</summary><p>Você pondera as consequências de decisões que afetam outras pessoas?</p></details><details><summary>5. Trabalho em equipe</summary><p>Você gosta de colaborar com pessoas de formações diferentes?</p></details><details><summary>6. Compromisso social</summary><p>Você tem interesse em compreender as necessidades de saúde da comunidade?</p></details><details><summary>7. Comunicação</summary><p>Você busca explicar informações complexas de forma compreensível?</p></details><details><summary>8. Resiliência e cuidado</summary><p>Você consegue refletir com serenidade sobre situações difíceis?</p></details></div>
+        <div class="quiz-fallback" role="group" aria-label="Oito perguntas de reflexão com respostas de zero a dez">
+          <strong>Explore as oito perguntas de reflexão</strong>
+          <p>Arraste cada escala para indicar sua afinidade de 0 a 10. Neste modo de visualização, as respostas servem à reflexão pessoal e não geram uma pontuação final.</p>
+          <details open>
+            <summary>Pergunta 1 de 8 · Curiosidade científica</summary>
+            <h3>Você se interessa pelo corpo humano e pelos processos de saúde e doença?</h3>
+            <p>Pense em sua disposição para estudar ciências biológicas e buscar explicações baseadas em evidências.</p>
+            <div class="slider-container">
+              <label class="slider-label" for="quiz-fallback-1">Sua afinidade de 0 a 10:</label>
+              <input type="range" min="0" max="10" step="1" value="5" class="range-input" id="quiz-fallback-1" aria-label="Pergunta 1: sua afinidade de zero a dez">
+              <div class="slider-labels-row"><span>0 – Quase nada</span><span>5 – Moderado</span><span>10 – Totalmente</span></div>
+            </div>
+          </details>
+          <details>
+            <summary>Pergunta 2 de 8 · Escuta e empatia</summary>
+            <h3>Você se dispõe a ouvir pessoas em momentos de preocupação ou sofrimento?</h3>
+            <p>A relação de cuidado exige atenção, respeito e comunicação clara.</p>
+            <div class="slider-container">
+              <label class="slider-label" for="quiz-fallback-2">Sua afinidade de 0 a 10:</label>
+              <input type="range" min="0" max="10" step="1" value="5" class="range-input" id="quiz-fallback-2" aria-label="Pergunta 2: sua afinidade de zero a dez">
+              <div class="slider-labels-row"><span>0 – Quase nada</span><span>5 – Moderado</span><span>10 – Totalmente</span></div>
+            </div>
+          </details>
+          <details>
+            <summary>Pergunta 3 de 8 · Estudo contínuo</summary>
+            <h3>Você aceita continuar aprendendo ao longo da vida profissional?</h3>
+            <p>Novas evidências e situações clínicas exigem atualização e reflexão.</p>
+            <div class="slider-container">
+              <label class="slider-label" for="quiz-fallback-3">Sua afinidade de 0 a 10:</label>
+              <input type="range" min="0" max="10" step="1" value="5" class="range-input" id="quiz-fallback-3" aria-label="Pergunta 3: sua afinidade de zero a dez">
+              <div class="slider-labels-row"><span>0 – Quase nada</span><span>5 – Moderado</span><span>10 – Totalmente</span></div>
+            </div>
+          </details>
+          <details>
+            <summary>Pergunta 4 de 8 · Responsabilidade</summary>
+            <h3>Você pondera as consequências de decisões que afetam outras pessoas?</h3>
+            <p>O cuidado médico envolve julgamento, responsabilidade e reconhecimento dos próprios limites.</p>
+            <div class="slider-container">
+              <label class="slider-label" for="quiz-fallback-4">Sua afinidade de 0 a 10:</label>
+              <input type="range" min="0" max="10" step="1" value="5" class="range-input" id="quiz-fallback-4" aria-label="Pergunta 4: sua afinidade de zero a dez">
+              <div class="slider-labels-row"><span>0 – Quase nada</span><span>5 – Moderado</span><span>10 – Totalmente</span></div>
+            </div>
+          </details>
+          <details>
+            <summary>Pergunta 5 de 8 · Trabalho em equipe</summary>
+            <h3>Você gosta de colaborar com pessoas de formações diferentes?</h3>
+            <p>A assistência depende de equipes e da articulação com serviços.</p>
+            <div class="slider-container">
+              <label class="slider-label" for="quiz-fallback-5">Sua afinidade de 0 a 10:</label>
+              <input type="range" min="0" max="10" step="1" value="5" class="range-input" id="quiz-fallback-5" aria-label="Pergunta 5: sua afinidade de zero a dez">
+              <div class="slider-labels-row"><span>0 – Quase nada</span><span>5 – Moderado</span><span>10 – Totalmente</span></div>
+            </div>
+          </details>
+          <details>
+            <summary>Pergunta 6 de 8 · Compromisso social</summary>
+            <h3>Você tem interesse em compreender as necessidades de saúde da comunidade?</h3>
+            <p>Considere a atenção à família, aos territórios e ao SUS.</p>
+            <div class="slider-container">
+              <label class="slider-label" for="quiz-fallback-6">Sua afinidade de 0 a 10:</label>
+              <input type="range" min="0" max="10" step="1" value="5" class="range-input" id="quiz-fallback-6" aria-label="Pergunta 6: sua afinidade de zero a dez">
+              <div class="slider-labels-row"><span>0 – Quase nada</span><span>5 – Moderado</span><span>10 – Totalmente</span></div>
+            </div>
+          </details>
+          <details>
+            <summary>Pergunta 7 de 8 · Comunicação</summary>
+            <h3>Você busca explicar informações complexas de forma compreensível?</h3>
+            <p>A comunicação apoia decisões compartilhadas com pacientes e familiares.</p>
+            <div class="slider-container">
+              <label class="slider-label" for="quiz-fallback-7">Sua afinidade de 0 a 10:</label>
+              <input type="range" min="0" max="10" step="1" value="5" class="range-input" id="quiz-fallback-7" aria-label="Pergunta 7: sua afinidade de zero a dez">
+              <div class="slider-labels-row"><span>0 – Quase nada</span><span>5 – Moderado</span><span>10 – Totalmente</span></div>
+            </div>
+          </details>
+          <details>
+            <summary>Pergunta 8 de 8 · Resiliência e cuidado</summary>
+            <h3>Você consegue refletir com serenidade sobre situações difíceis?</h3>
+            <p>Conhecer o cuidado em urgências, doenças graves e fim de vida ajuda na escolha profissional.</p>
+            <div class="slider-container">
+              <label class="slider-label" for="quiz-fallback-8">Sua afinidade de 0 a 10:</label>
+              <input type="range" min="0" max="10" step="1" value="5" class="range-input" id="quiz-fallback-8" aria-label="Pergunta 8: sua afinidade de zero a dez">
+              <div class="slider-labels-row"><span>0 – Quase nada</span><span>5 – Moderado</span><span>10 – Totalmente</span></div>
+            </div>
+          </details>
+        </div>
         <div class="quiz-card">
           <!-- Visualizador do quiz -->
           <div id="quiz-question-wrapper">
@@ -2782,8 +2880,8 @@
 
               <div class="slider-container">
                 <div class="slider-header">
-                  <span class="slider-label">Sua afinidade de 0 a 10:</span>
-                  <div class="slider-score-display" id="quiz-slider-value">5</div>
+                  <span class="slider-label" id="quiz-slider-label">Sua afinidade de 0 a 10:</span>
+                  <output class="slider-score-display" id="quiz-slider-value" for="quiz-slider-input" aria-live="polite">5</output>
                 </div>
                 <input 
                   type="range" 
@@ -2793,7 +2891,8 @@
                   value="5" 
                   class="range-input" 
                   id="quiz-slider-input"
-                  aria-label="Escala de 0 a 10 para a resposta"
+                  aria-labelledby="quiz-q-title quiz-slider-label"
+                  aria-describedby="quiz-q-desc"
                 >
                 <div class="slider-labels-row">
                   <span>0 - Quase nada</span>
@@ -2887,6 +2986,7 @@
       <span>Desenvolvido para divulgação acadêmica e orientação vocacional.</span>
     </div>
   </footer><script>document.addEventListener('DOMContentLoaded', () => {
+  document.documentElement.classList.remove('no-js');
   const $ = id => document.getElementById(id);
   const menu = $('mobile-menu-toggle'), nav = $('main-navigation');
   if (menu && nav) {
@@ -2945,7 +3045,6 @@
   let current=0;const answers=Array(8).fill(5);const slider=$('quiz-slider-input'),prev=$('btn-quiz-prev'),next=$('btn-quiz-next');
   function update(){const q=questions[current];$('quiz-q-title').textContent=q[1];$('quiz-q-desc').textContent=q[2];$('quiz-cat-text').textContent=q[0];$('quiz-step-text').textContent=`Pergunta ${current+1} de 8`;slider.value=answers[current];$('quiz-slider-value').textContent=slider.value;$('quiz-prog-fill').style.width=`${(current+1)*12.5}%`;prev.disabled=current===0;next.innerHTML=current===7?'Ver meu resultado &check;':'Próxima pergunta &rarr;'}
   if(slider&&prev&&next){slider.addEventListener('input',()=>{answers[current]=+slider.value;$('quiz-slider-value').textContent=slider.value});prev.addEventListener('click',()=>{if(current){current--;update()}});next.addEventListener('click',()=>{if(current<7){current++;update();return}const score=(answers.reduce((a,b)=>a+b,0)/8).toFixed(1);$('quiz-question-wrapper').style.display='none';$('quiz-result-wrapper').style.display='block';$('final-score-val').textContent=score;$('final-level-title').textContent='Seu perfil está em exploração';$('final-level-desc').textContent=`Sua média foi ${score} de 10. Este exercício ajuda a refletir sobre interesses; não mede aptidão nem prevê desempenho em Medicina.`;$('final-tips-list').innerHTML='<li>Leia o PPC e as DCNs de Medicina.</li><li>Converse com estudantes e docentes do curso da UFC.</li><li>Participe de atividades abertas e conheça o campus do Porangabuçu.</li>'});$('btn-quiz-restart').addEventListener('click',()=>{current=0;answers.fill(5);$('quiz-result-wrapper').style.display='none';$('quiz-question-wrapper').style.display='block';update()});update()}
-  document.documentElement.classList.remove('no-js');
   document.querySelectorAll('.static-fallback').forEach(el => { el.hidden = true; });
 });
 </script></body></html>
